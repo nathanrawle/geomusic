@@ -2,7 +2,7 @@
 
 import numpy as np
 import pandas as pd
-import psycopg2
+import psycopg2  # noqa
 import sqlalchemy
 
 
@@ -146,7 +146,7 @@ gn_pcls_rel = (
 )
 
 # resolve the geoname_id for the musicbrainz area country name
-mb_areas = fill_na_with_rel(
+mb_areas = fill_na_from_junction(
     mb_areas, "geoname_id", "name_lower", gn_pcls_rel, mba_is_country
 )
 
@@ -166,7 +166,7 @@ gn_altnames_rel = (
 gn_altnames_rel = gn_altnames_rel[~gn_altnames_rel.index.duplicated()]
 
 # resolve geoname_id for musicbrainz area country names matching geonames alternate names
-mb_areas = fill_na_with_rel(
+mb_areas = fill_na_from_junction(
     mb_areas, "geoname_id", "name_lower", gn_altnames_rel, mba_is_country
 )
 
@@ -236,7 +236,7 @@ for country_mbid, country_gnid in country_mb_to_gn.items():
                             scope=gn_scope, mask=mask, key_col="geoname"
                         )
 
-                        mb_areas = fill_na_with_rel(
+                        mb_areas = fill_na_from_junction(
                             mb_areas, "geoname_id", "name_lower", rel, mb_subs
                         )
 
