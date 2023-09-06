@@ -1,0 +1,29 @@
+# https://editorconfig.org/
+# https://github.com/django/django/blob/4f0c0e6fa1ce2e4da9407f122d0c1c27c7f8ad83/.editorconfig
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+end_of_line = lf
+charset = utf-8
+
+# Docstrings and comments use max_line_length = 79
+[*.py]
+max_line_length = 88
+
+[*.html]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+insert_final_newline = ignore
+
+[docs/**.txt]
+max_line_length = 79
+
+[*.{yml,yaml}]
+indent_size = 2
