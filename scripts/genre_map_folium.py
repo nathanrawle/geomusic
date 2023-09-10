@@ -60,7 +60,7 @@ def main(fp="./data/curated/genre_map.csv"):
     m.add_child(cluster)
 
     # return map _html_repr
-    return m._repr_html_()
+    return m.get_root().render()
 
 
 if __name__ == "__main__":
