@@ -59,7 +59,7 @@ def main(fp="./data/curated/genre_map.csv"):
     # Add cluster to map object
     m.add_child(cluster)
 
-    # return map _html_repr
+    # return map as html
     return m.get_root().render()
 
 
