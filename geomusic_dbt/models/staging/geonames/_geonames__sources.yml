@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: geonames
+    description: "The GeoNames geographical database contains over eleven million placenames that are available for download free of charge"
+
+    tables:
+      - name: admin1_codes
+        description: "Most adm1 are FIPS codes. ISO codes are used for US, CH, BE and ME. UK and Greece are using an additional level between country and fips code. The code '00' stands for general features where no specific adm1 code is defined."
+      - name: admin2_codes
+        description: "Code for the second administrative division, a county in the US"
+      - name: alt_names
+        description: "Alternate names with language codes and geoname_id"
+      - name: country_info
+        description: "Country information: iso codes, fips codes, languages, capital, etc."
+      - name: feature_classes
+        description: "See http://www.geonames.org/export/codes.html"
+      - name: feature_codes
+        description: "See http://www.geonames.org/export/codes.html"
+      - name: geonames
+        description: "Main 'geoname' table"
+      - name: hierarchy
+        description: "parent_gnid, child_gnid, hierarchy_type. The type 'ADM' stands for the admin hierarchy modeled by the admin1-4 codes. The relation toponym-adm hierarchy is not included in the file, it can instead be built from the admincodes of the toponym."
+      - name: iso_language_codes
+        description: "ISO 639 language codes, as used for alternate names in alt_names"
+      - name: timezones
+        description: "countryCode, timezoneId, gmt offset on 1st of January, dst offset to gmt on 1st of July (of the current year), rawOffset without DST"
+      - name: user_tags
+        description: "User tags, geoname_id, tag"
