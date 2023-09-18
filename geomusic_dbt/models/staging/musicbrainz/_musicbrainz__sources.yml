@@ -19,13 +19,21 @@ sources:
         description: "This entity represents a URL pointing to a resource external to MusicBrainz, i.e. an official homepage, a site where music can be acquired, an entry in another database, etc."
         identifier: url
 
+      # Entity complementary tables
+      - name: artist_tags
+        description: "All primary entities (except genre and URL) have *_tag and *_tag_raw tables, with the same structure. These tables contain two foreign keys, linked to the associated entity and to the tag table."
+        identifier: artist_tag
+      - name: tags
+        description: "The tag table contains the actual names of the tags, and a ref_count indicating how often the tag has been used."
+        identifier: tag
+
       # Relationship tables
       - name: l_area_artist
         description: "There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
       - name: l_area_url
         description: "There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
       - name: l_artist_genre
-        description: "There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
+        description: "(Currently unused) There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
       - name: links
         description: "Contains the begin and end date info, and the `link_type` foreign key field that specifies what kind of AR it is. It also has a count of how many other attributes that particular link has in the attribute_count field, and a created field that specifies when it was created."
         identifier: link

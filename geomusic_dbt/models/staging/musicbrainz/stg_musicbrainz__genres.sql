@@ -1,1 +1,23 @@
-SELECT * FROM {{ source( 'musicbrainz', 'genres' ) }}
+WITH genres AS (
+    SELECT
+        genre_id,
+        genre_name
+    FROM {{ ref('base_musicbrainz__genres') }}
+),
+tags AS (
+    SELECT
+        tag_id,
+        LOWER(tag_name) AS tag_name,
+        tag_ref_count
+    FROM {{ ref('stg_musicbrainz__tags') }}
+)
+SELECT
+    t.tag_id,
+    g.genre_id,
+    g.genre_name,
+    t.tag_ref_count
+FROM
+    tags t
+    JOIN
+    genres g
+    ON t.tag_name = LOWER(g.genre_name)
