@@ -16,10 +16,12 @@ renamed AS (
         type AS artist_type,
         area AS area_id,
         gender AS artist_gender,
+        comment AS artist_comment
         edits_pending AS artist_edits_pending,
         last_updated AS artist_last_updated,
         ended AS artist_ended,
-        comment AS artist_comment
+        begin_area AS artist_begin_area,
+        end_area AS artist_end_area
     FROM source
 )
 SELECT * FROM renamed
