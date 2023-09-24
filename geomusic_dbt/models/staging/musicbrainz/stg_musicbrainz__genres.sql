@@ -12,10 +12,10 @@ tags AS (
     FROM {{ ref('stg_musicbrainz__tags') }}
 )
 SELECT
-    t.tag_id,
+    t.tag_id AS genre_tag_id,
     g.genre_id,
     g.genre_name,
-    t.tag_ref_count
+    t.tag_ref_count AS genre_tag_ref_count
 FROM
     tags t
     JOIN

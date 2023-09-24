@@ -29,7 +29,7 @@ sources:
 
       # Relationship tables
       - name: l_area_artist
-        description: "There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
+        description: "(Currently unused) There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
       - name: l_area_url
         description: "There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
       - name: l_artist_genre
