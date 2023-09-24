@@ -9,23 +9,27 @@ area_geonames_counted AS (
         source
     GROUP BY area_id
 ),
+one_to_one_ids AS (
+    SELECT area_id
+    FROM area_geonames_counted
+    WHERE area_row_count = 1
+),
 one_to_one AS (
     SELECT source.*
     FROM source
-    JOIN area_geonames_counted
-        USING (area_id)
-    WHERE area_row_count = 1
+    JOIN one_to_one_ids
+        USING(area_id)
 ),
-duplicates AS (
-    SELECT source.*
-    FROM source
-    JOIN area_geonames_counted
-        USING (area_id)
+duplicate_ids AS (
+    SELECT area_id
+    FROM area_geonames_counted
     WHERE area_row_count > 1
 ),
 deduplicated AS (
-    SELECT *
-    FROM duplicates
+    SELECT source.*
+    FROM source
+    JOIN duplicate_ids
+        USING(area_id)
     WHERE
         population > 0
         AND feature_class = 'P'
