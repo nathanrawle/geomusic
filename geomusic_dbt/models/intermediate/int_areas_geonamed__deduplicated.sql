@@ -25,14 +25,31 @@ duplicate_ids AS (
     FROM area_geonames_counted
     WHERE area_row_count > 1
 ),
-deduplicated AS (
-    SELECT source.*
+duplicates_ranked AS (
+    SELECT
+        area_id,
+        geoname_id,
+        ROW_NUMBER() OVER (
+            PARTITION BY area_id
+            ORDER BY
+                population DESC,
+                feature_class DESC,
+                feature_code
+        ) AS geoname_id_rank
     FROM source
     JOIN duplicate_ids
         USING(area_id)
-    WHERE
-        population > 0
-        AND feature_class = 'P'
+),
+deduplicated_ids AS (
+    SELECT area_id, geoname_id
+    FROM duplicates_ranked
+    WHERE geoname_id_rank = 1
+),
+deduplicated AS (
+    SELECT source.*
+    FROM source
+    JOIN deduplicated_ids
+        USING(area_id, geoname_id)
 )
 SELECT *
 FROM one_to_one
