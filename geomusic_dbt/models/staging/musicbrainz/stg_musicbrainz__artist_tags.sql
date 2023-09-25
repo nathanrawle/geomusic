@@ -5,8 +5,7 @@ renamed AS (
     SELECT
         artist AS artist_id,
         tag AS tag_id,
-        count AS artist_tag_count,
-        last_updated AS artist_tag_last_updated
+        count AS artist_tag_count
     FROM source
 )
 SELECT * FROM renamed
