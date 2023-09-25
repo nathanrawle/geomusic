@@ -1,9 +1,3 @@
-{{
-    config(
-        materialized = "table"
-    )
-}}
-
 WITH areas_gnid_extracted AS (
     SELECT
         *,

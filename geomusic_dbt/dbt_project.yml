@@ -5,6 +5,15 @@ name: "geomusic_dbt"
 version: "1.0.0"
 config-version: 2
 
+models:
+  geomusic_dbt:
+    intermediate:
+      +materialized: table
+    marts:
+      +materialized: table
+    statistics:
+      +materialized: table
+
 # This setting configures which "profile" dbt uses for this project.
 profile: "geomusic_dbt"
 
