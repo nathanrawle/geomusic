@@ -7,7 +7,7 @@ WITH genres AS (
 tags AS (
     SELECT
         tag_id,
-        LOWER(tag_name) AS tag_name,
+        tag_name AS tag_name,
         tag_ref_count
     FROM {{ ref('stg_musicbrainz__tags') }}
 )
@@ -20,4 +20,4 @@ FROM
     tags t
     JOIN
     genres g
-    ON t.tag_name = LOWER(g.genre_name)
+    ON LOWER(TRIM(t.tag_name)) = LOWER(g.genre_name)
