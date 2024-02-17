@@ -1,0 +1,51 @@
+version: 2
+
+sources:
+  - name: musicbrainz
+    description: "MusicBrainz is an open music encyclopedia that collects music metadata and makes it available to the public"
+
+    tables:
+      # Primary entities
+      - name: areas
+        description: "A country, region, city or the like."
+        identifier: area
+      - name: artists
+        description: "An artist is generally a musician, a group of musicians, or another music professional (composer, engineer, illustrator, producer, etc.)"
+        identifier: artist
+      - name: genres
+        description: "A genre is a descriptor for the style and conventions followed by a piece of music."
+        identifier: genre
+      - name: urls
+        description: "This entity represents a URL pointing to a resource external to MusicBrainz, i.e. an official homepage, a site where music can be acquired, an entry in another database, etc."
+        identifier: url
+
+      # Entity complementary tables
+      - name: artist_tags
+        description: "All primary entities (except genre and URL) have *_tag and *_tag_raw tables, with the same structure. These tables contain two foreign keys, linked to the associated entity and to the tag table."
+        identifier: artist_tag
+      - name: tags
+        description: "The tag table contains the actual names of the tags, and a ref_count indicating how often the tag has been used."
+        identifier: tag
+
+      # Relationship tables
+      - name: l_area_artist
+        description: "(Currently unused) There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
+      - name: l_area_url
+        description: "There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
+      - name: l_artist_genre
+        description: "(Currently unused) There are tables for every possible combination of the primary entities all with the same format. They contain a field, `edits_pending` that is a count of pending changes to the AR, a `last_updated` field, and three foreign keys: `link` that points back to the associated entry in the link table, and `entity0` and `entity1` that point to the associated entry in the corresponding entity table (i.e. area, artist, url, etc.)."
+      - name: links
+        description: "Contains the begin and end date info, and the `link_type` foreign key field that specifies what kind of AR it is. It also has a count of how many other attributes that particular link has in the attribute_count field, and a created field that specifies when it was created."
+        identifier: link
+      - name: link_attributes
+        description: "Each AR attribute either applies to a particular AR or it doesn't. The link_attribute table stores this information, having a record for each attribute_type (a foreign key field for link_attribute_type) of each link"
+        identifier: link_attribute
+      - name: link_attribute_types
+        description: "The attributes are themselves defined in the link_attribute_types table. Like AR types, attributes form a number of trees (the vast majority of them are individual musical instruments). Besides the parent and child_order fields shared with the link_type table, the link_attribute_table also has a root field, showing the root of the tree that the attribute is part of. Attributes also have names and descriptions which appear in various places where they are displayed, as well as gids and a last_updated timestamp."
+        identifier: link_attribute_type
+      - name: link_types
+        description: "The link_types table defines the types of ARs available. AR types are arranged in a number of trees, for ease of finding. This tree structure is expressed with the parent and child_order fields; parent is the id of the parent AR type, or null if it's at the root, and child_order orders the children of a given parent AR type. Each AR type has a unique uuid, stored in the gid field, for use in permalinks and external applications. The link between a particular AR type and the corresponding l_ table is formed by the entity_type0 and entity_type1 fields."
+        identifier: link_type
+      - name: link_type_attribute_types
+        description: "The link_type_attribute_types table specifies what attributes can be applied to particular types of ARs; it has the necessary foreign key fields (link_type and attribute_type) and it also specifies how many instances of the attribute (or one of its children) can be added to the particular AR type in the min and max fields. Currently, most of them allow the attributes to merely be present or absent, while a few allow any number of copies of the attribute, or none. The 'creative commons licensed download' attribute has to be included exactly once, while the instrument attribute (of the instrument type AR), requires at least one instance."
+        identifier: link_type_attribute_type
